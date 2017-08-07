@@ -1,5 +1,5 @@
 /*
- * SystemJS v0.20.17 Dev
+ * SystemJS v0.20.18 Dev
  */
 (function () {
 'use strict';
@@ -2131,7 +2131,7 @@ function doMapSync (loader, config, pkg, pkgKey, mapMatch, path, metadata, skipE
   if (!validMapping(mapMatch, mapped, path) || typeof mapped !== 'string')
     return;
 
-  return packageResolveSync.call(this, config, mapped + path.substr(mapMatch.length), pkgKey + '/', metadata, metadata, skipExtensions);
+  return packageResolveSync.call(loader, config, mapped + path.substr(mapMatch.length), pkgKey + '/', metadata, metadata, skipExtensions);
 }
 
 function applyPackageConfig (loader, config, pkg, pkgKey, subPath, metadata, skipExtensions) {
@@ -3642,7 +3642,7 @@ function translateAndInstantiate (loader, key, source, metadata, processAnonRegi
 var globalName = typeof self != 'undefined' ? 'self' : 'global';
 
 // good enough ES6 module detection regex - format detections not designed to be accurate, but to handle the 99% use case
-var esmRegEx = /(^\s*|[}\);\n]\s*)(import\s*(['"]|(\*\s+as\s+)?[^"'\(\)\n;]+\s*from\s*['"]|\{)|export\s+\*\s+from\s+["']|export\s*(\{|default|function|class|var|const|let|async\s+function))/;
+var esmRegEx = /(^\s*|[}\);\n]\s*)(import\s*(['"]|(\*\s+as\s+)?(?!type)([^"'\(\)\n; ]+)\s*from\s*['"]|\{)|export\s+\*\s+from\s+["']|export\s*(\{|default|function|class|var|const|let|async\s+function))/;
 
 var leadingCommentAndMetaRegEx = /^(\s*\/\*[^\*]*(\*(?!\/)[^\*]*)*\*\/|\s*\/\/[^\n]*|\s*"[^"]+"\s*;?|\s*'[^']+'\s*;?)*\s*/;
 function detectRegisterFormat(source) {
@@ -3985,7 +3985,7 @@ SystemJSLoader$1.prototype.registerDynamic = function (key, deps, executingRequi
   return RegisterLoader$1.prototype.registerDynamic.call(this, key, deps, executingRequire, execute);
 };
 
-SystemJSLoader$1.prototype.version = "0.20.17 Dev";
+SystemJSLoader$1.prototype.version = "0.20.18 Dev";
 
 var System = new SystemJSLoader$1();
 
