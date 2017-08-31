@@ -1017,7 +1017,7 @@ function makeDynamicRequire (loader, key, dependencies, dependencyInstantiations
         else
           module = ensureEvaluate(loader, depLoad, depLoad.linkRecord, registry, state, seen);
 
-        return module.__useDefault || module;
+        return '__useDefault' in module ? module.__useDefault : module;
       }
     }
     throw new Error('Module ' + name + ' not declared as a System.registerDynamic dependency of ' + key);
@@ -3435,10 +3435,14 @@ function translateAndInstantiate (loader, key, source, metadata, processAnonRegi
 
     readMetaSyntax(source, metadata);
 
-    if (!metadata.pluginModule || !metadata.pluginModule.translate)
+    if (!metadata.pluginModule)
       return source;
 
     metadata.pluginLoad.source = source;
+
+    if (!metadata.pluginModule.translate)
+      return source;
+
     return Promise.resolve(metadata.pluginModule.translate.call(loader, metadata.pluginLoad, metadata.traceOpts))
     .then(function (translated) {
       if (metadata.load.sourceMap) {
