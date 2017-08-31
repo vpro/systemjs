@@ -1,5 +1,5 @@
 /*
- * SystemJS v0.20.18 Dev
+ * SystemJS v0.20.19 Dev
  */
 (function () {
 'use strict';
@@ -1469,6 +1469,8 @@ function fetchFetch (url, authorization, integrity, asBuffer) {
     if (typeof authorization == 'string')
       opts.headers['Authorization'] = authorization;
     opts.credentials = 'include';
+  } else {
+    opts.credentials = 'same-origin';
   }
 
   return fetch(url, opts)
@@ -3989,7 +3991,7 @@ SystemJSLoader$1.prototype.registerDynamic = function (key, deps, executingRequi
   return RegisterLoader$1.prototype.registerDynamic.call(this, key, deps, executingRequire, execute);
 };
 
-SystemJSLoader$1.prototype.version = "0.20.18 Dev";
+SystemJSLoader$1.prototype.version = "0.20.19 Dev";
 
 var System = new SystemJSLoader$1();
 

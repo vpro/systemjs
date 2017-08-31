@@ -27,6 +27,8 @@ function fetchFetch (url, authorization, integrity, asBuffer) {
     if (typeof authorization == 'string')
       opts.headers['Authorization'] = authorization;
     opts.credentials = 'include';
+  } else {
+    opts.credentials = 'same-origin';
   }
 
   return fetch(url, opts)
